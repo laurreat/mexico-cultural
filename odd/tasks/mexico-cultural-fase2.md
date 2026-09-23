@@ -62,3 +62,12 @@ Ruta: delegated direct intentada -> fallback direct inline (Task explore fallo: 
 - Duplicacion EN: simple, file:// compatible, sin JS i18n (preferencia prompt)
 - CTA festivals->gastronomy: unica pagina real afin existente, evita galeria ficticia
 - Footer sin sociales: no inventar, credito UNAD real
+
+## Verification evidence (2026-09-23)
+- Placeholders HTML: 0 (grep image-placeholder/IMAGEN=0)
+- #galeria: 0, #contacto solo a footer existente id=contacto (ES) / id=contact (EN) -> valido
+- IMG 22/22 con alt especifico por idioma
+- h1 unico en las 6 paginas verificado
+- lang es/en correcto, skip-link, :focus-visible, tokens cempasuchil/obispo/fiesta presentes
+- Commits: 28a193e diseno+assets, 6192f88 ES+script, e561bef EN+tracking. Branch feature/mexico-cultural-fase2. Push/PR pendientes decision usuario.
+- Limitacion honesta: SVG ilustrativos locales (no fotos). Reemplazables 1:1 por jpg/webp en misma ruta. Sin servidor/build verificado por estructura file:// + rutas relativas.
