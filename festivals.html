@@ -1,121 +1,112 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Festivales y Celebraciones - México Cultural</title>
-  <meta name="description" content="Conoce las fiestas que reúnen memoria, comunidad y expresión artística en diferentes regiones de México.">
+  <title>Festivales y Celebraciones - Mexico Cultural</title>
+  <meta name="description" content="Conoce las fiestas que reunen memoria, comunidad y expresion artistica en diferentes regiones de Mexico.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header" role="banner">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="logo" aria-label="México Cultural - Inicio">México Cultural</a>
-      <nav class="nav" aria-label="Navegación principal">
-        <a href="index.html#inicio" class="nav-link">Home</a>
-        <a href="festivals.html" class="nav-link active">Festivals</a>
-        <a href="gastronomy.html" class="nav-link">Gastronomy</a>
-        <a href="index.html#contacto" class="nav-link">Contact</a>
+      <a href="index.html" class="logo" aria-label="Mexico Cultural - Inicio">Mexico Cultural</a>
+      <nav class="nav" aria-label="Navegacion principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="festivals.html" class="nav-link active" aria-current="page">Festivales</a>
+        <a href="gastronomy.html" class="nav-link">Gastronomia</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
       </nav>
-      <button type="button" class="lang-toggle" aria-label="Cambiar idioma">
-        [ ES <span class="lang-separator">|</span> EN ]
-      </button>
+      <div class="lang-toggle" aria-label="Idioma">
+        <a href="festivals.html" aria-current="true" lang="es">ES</a>
+        <span class="lang-separator" aria-hidden="true">|</span>
+        <a href="festivals-en.html" lang="en">EN</a>
+      </div>
     </div>
   </header>
 
-  <main role="main">
-    <section class="page-header">
+  <main id="contenido">
+    <section class="page-header" aria-labelledby="page-title">
       <div class="container">
         <p class="page-tag">[ Archivo cultural / 002 ]</p>
-        <h1 class="page-title">Festivales y Celebraciones Emblemáticas</h1>
-        <p class="page-description">Conoce las fiestas que reúnen memoria, comunidad y expresión artística en diferentes regiones de México.</p>
+        <h1 class="page-title" id="page-title">Festivales y Celebraciones Emblematicas</h1>
+        <p class="page-description">Conoce las fiestas que reunen memoria, comunidad y expresion artistica en diferentes regiones de Mexico.</p>
       </div>
     </section>
 
-    <section class="traditions">
+    <section class="traditions" aria-label="Tradiciones">
       <div class="container">
         <article class="tradition-card tradition-left">
-          <div class="image-placeholder tradition-image" aria-label="imagen / día de muertos" role="img">
-            <div class="placeholder-border"></div>
-            <div class="placeholder-content">
-              <span class="placeholder-icon">＋</span>
-              <span class="placeholder-label">IMAGEN / DÍA DE MUERTOS</span>
-            </div>
+          <div class="tradition-image">
+            <img src="assets/img/festival-origen.svg" alt="Ofrenda y calavera del Dia de Muertos con veladoras" width="800" height="600" loading="lazy">
           </div>
           <div class="tradition-content">
-            <p class="tradition-meta">01 / celebración</p>
-            <h2 class="tradition-title">Origen y Significado del Día de Muertos</h2>
-            <p class="tradition-description">Una celebración ancestral que une las raíces indígenas y la tradición católica para recordar, recibir y honrar a quienes ya no están. Cada altar cuenta una historia familiar a través de objetos, alimentos y fotografías.</p>
+            <p class="tradition-meta">01 / celebracion</p>
+            <h2 class="tradition-title">Origen y Significado del Dia de Muertos</h2>
+            <p class="tradition-description">Una celebracion ancestral que une las raices indigenas y la tradicion catolica para recordar, recibir y honrar a quienes ya no estan. Cada altar cuenta una historia familiar a traves de objetos, alimentos y fotografias.</p>
           </div>
         </article>
 
         <article class="tradition-card tradition-right">
           <div class="tradition-content">
-            <p class="tradition-meta">02 / celebración</p>
-            <h2 class="tradition-title">Simbología de la Flor de Cempasúchil y la Ofrenda</h2>
-            <p class="tradition-description">El cempasúchil guía a las almas con su color y aroma, mientras la ofrenda reúne agua, velas, pan, sal y recuerdos. Juntos forman un lenguaje visual de bienvenida, memoria y afecto.</p>
+            <p class="tradition-meta">02 / celebracion</p>
+            <h2 class="tradition-title">Simbologia de la Flor de Cempasuchil y la Ofrenda</h2>
+            <p class="tradition-description">El cempasuchil guia a las almas con su color y aroma, mientras la ofrenda reune agua, velas, pan, sal y recuerdos. Juntos forman un lenguaje visual de bienvenida, memoria y afecto.</p>
           </div>
-          <div class="image-placeholder tradition-image" aria-label="imagen / cempasúchil" role="img">
-            <div class="placeholder-border"></div>
-            <div class="placeholder-content">
-              <span class="placeholder-icon">＋</span>
-              <span class="placeholder-label">IMAGEN / CEMPASÚCHIL</span>
-            </div>
+          <div class="tradition-image">
+            <img src="assets/img/festival-cempasuchil.svg" alt="Flor de cempasuchil naranja guia de las almas" width="800" height="600" loading="lazy">
           </div>
         </article>
 
         <article class="tradition-card tradition-left">
-          <div class="image-placeholder tradition-image" aria-label="imagen / guelaguetza" role="img">
-            <div class="placeholder-border"></div>
-            <div class="placeholder-content">
-              <span class="placeholder-icon">＋</span>
-              <span class="placeholder-label">IMAGEN / GUELAGUETZA</span>
-            </div>
+          <div class="tradition-image">
+            <img src="assets/img/festival-guelaguetza.svg" alt="Danzantes de la Guelaguetza en Oaxaca con trajes coloridos" width="800" height="600" loading="lazy">
           </div>
           <div class="tradition-content">
-            <p class="tradition-meta">03 / celebración</p>
-            <h2 class="tradition-title">La Guelaguetza y Bailes Folclóricos</h2>
-            <p class="tradition-description">En Oaxaca, la Guelaguetza celebra la cooperación y la diversidad de sus comunidades. Sus danzas, trajes y músicas transmiten historias vivas de distintas regiones de México.</p>
+            <p class="tradition-meta">03 / celebracion</p>
+            <h2 class="tradition-title">La Guelaguetza y Bailes Folcloricos</h2>
+            <p class="tradition-description">En Oaxaca, la Guelaguetza celebra la cooperacion y la diversidad de sus comunidades. Sus danzas, trajes y musicas transmiten historias vivas de distintas regiones de Mexico.</p>
           </div>
         </article>
       </div>
     </section>
 
-    <section class="cta-section">
+    <section class="cta-section" aria-labelledby="cta-title">
       <div class="container cta-card">
         <div class="cta-content">
-          <p class="cta-tag">[ Próxima experiencia ]</p>
-          <h2 class="cta-title">Explora la galería audiovisual</h2>
-          <p class="cta-description">Escucha, observa y descubre las voces que mantienen vivas estas celebraciones.</p>
+          <p class="cta-tag">[ Proxima experiencia ]</p>
+          <h2 class="cta-title" id="cta-title">Explora los sabores que acompañan la fiesta</h2>
+          <p class="cta-description">Descubre como la cocina tradicional forma parte de cada celebracion.</p>
         </div>
-        <a href="#galeria" class="btn btn-outline">Ver galería <span aria-hidden="true">→</span></a>
+        <a href="gastronomy.html" class="btn btn-outline">Ver gastronomia <span aria-hidden="true">→</span></a>
       </div>
     </section>
   </main>
 
-  <footer id="contacto" class="site-footer" role="contentinfo">
+  <footer id="contacto" class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <p class="footer-logo">México Cultural</p>
-        <p class="footer-tagline">Una ventana a los colores, el ritmo y la tradición.</p>
+        <p class="footer-logo">Mexico Cultural</p>
+        <p class="footer-tagline">Una ventana a los colores, el ritmo y la tradicion.</p>
+        <p class="footer-credit">Proyecto academico UNAD — Programacion Web 213025, Fase 2. Contenido cultural con fines educativos.</p>
       </div>
       <nav class="footer-nav" aria-label="Mapa del sitio">
         <span class="footer-nav-title">Mapa del sitio</span>
-        <a href="index.html#inicio" class="footer-link">Home</a>
-        <a href="festivals.html" class="footer-link">Festivals</a>
-        <a href="gastronomy.html" class="footer-link">Gastronomy</a>
+        <a href="index.html" class="footer-link">Inicio</a>
+        <a href="festivals.html" class="footer-link">Festivales</a>
+        <a href="gastronomy.html" class="footer-link">Gastronomia</a>
       </nav>
       <div class="footer-social">
-        <span class="footer-nav-title">Síguenos</span>
-        <div class="social-links" aria-label="Redes sociales">
-          <a href="#contacto" class="social-link" aria-label="Instagram">ig</a>
-          <a href="#contacto" class="social-link" aria-label="Facebook">fb</a>
-          <a href="#contacto" class="social-link" aria-label="X">x</a>
+        <span class="footer-nav-title">Idioma</span>
+        <div class="social-links">
+          <a href="festivals.html" class="social-link" lang="es" aria-current="true">ES</a>
+          <a href="festivals-en.html" class="social-link" lang="en">EN</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="copyright">© 2024 México Cultural — Todos los derechos reservados</p>
+      <p class="copyright">© 2024 Mexico Cultural — Todos los derechos reservados</p>
     </div>
   </footer>
 

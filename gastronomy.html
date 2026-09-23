@@ -1,76 +1,71 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sabores y Simbología - México Cultural</title>
-  <meta name="description" content="Un recorrido por los ingredientes, las técnicas y los relatos que convierten la cocina mexicana en una expresión viva de identidad.">
+  <title>Sabores y Simbologia - Mexico Cultural</title>
+  <meta name="description" content="Un recorrido por los ingredientes, las tecnicas y los relatos que convierten la cocina mexicana en una expresion viva de identidad.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header" role="banner">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="logo" aria-label="México Cultural - Inicio">México Cultural</a>
-      <nav class="nav" aria-label="Navegación principal">
-        <a href="index.html#inicio" class="nav-link">Home</a>
-        <a href="festivals.html" class="nav-link">Festivals</a>
-        <a href="gastronomy.html" class="nav-link active">Gastronomy</a>
-        <a href="index.html#contacto" class="nav-link">Contact</a>
+      <a href="index.html" class="logo" aria-label="Mexico Cultural - Inicio">Mexico Cultural</a>
+      <nav class="nav" aria-label="Navegacion principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="festivals.html" class="nav-link">Festivales</a>
+        <a href="gastronomy.html" class="nav-link active" aria-current="page">Gastronomia</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
       </nav>
-      <button type="button" class="lang-toggle" aria-label="Cambiar idioma">
-        [ ES <span class="lang-separator">|</span> EN ]
-      </button>
+      <div class="lang-toggle" aria-label="Idioma">
+        <a href="gastronomy.html" aria-current="true" lang="es">ES</a>
+        <span class="lang-separator" aria-hidden="true">|</span>
+        <a href="gastronomy-en.html" lang="en">EN</a>
+      </div>
     </div>
   </header>
 
-  <main role="main">
-    <section class="page-header">
+  <main id="contenido">
+    <section class="page-header" aria-labelledby="page-title">
       <div class="container">
         <p class="page-tag">[ Archivo cultural / 003 ]</p>
-        <h1 class="page-title">Sabores y Simbología Cultural</h1>
-        <p class="page-description">Un recorrido por los ingredientes, las técnicas y los relatos que convierten la cocina mexicana en una expresión viva de identidad.</p>
+        <h1 class="page-title" id="page-title">Sabores y Simbologia Cultural</h1>
+        <p class="page-description">Un recorrido por los ingredientes, las tecnicas y los relatos que convierten la cocina mexicana en una expresion viva de identidad.</p>
       </div>
     </section>
 
-    <section class="heritage-section">
+    <section class="heritage-section" aria-labelledby="heritage-title">
       <div class="container">
         <article class="heritage-card">
-          <div class="image-placeholder heritage-image" aria-label="imagen / maíz, chile y agave" role="img">
-            <div class="placeholder-border"></div>
-            <div class="placeholder-content">
-              <span class="placeholder-icon">＋</span>
-              <span class="placeholder-label">IMAGEN / MAÍZ, CHILE Y AGAVE</span>
-            </div>
+          <div class="heritage-image">
+            <img src="assets/img/patrimonio-maiz.svg" alt="Maiz, chile y agave base de la cocina tradicional mexicana" width="800" height="600" loading="lazy">
           </div>
           <div class="heritage-content">
             <p class="heritage-meta">01 / patrimonio alimentario</p>
-            <h2 class="heritage-title">Maíz, Chile y Agave: una herencia viva</h2>
-            <p class="heritage-description">Estos tres elementos forman la base de una cocina que es también territorio, conocimiento y comunidad. El sistema culinario tradicional mexicano, reconocido por la UNESCO como Patrimonio Cultural Inmaterial, conserva prácticas agrícolas, técnicas y rituales transmitidos entre generaciones.</p>
-            <p class="heritage-description">Desde la milpa hasta la mesa, sus sabores cuentan una historia de adaptación, celebración y profundo vínculo con la tierra.</p>
+            <h2 class="heritage-title" id="heritage-title">Maiz, Chile y Agave: una herencia viva</h2>
+            <p class="heritage-description">Estos tres elementos forman la base de una cocina que es tambien territorio, conocimiento y comunidad. El sistema culinario tradicional mexicano, reconocido por la UNESCO como Patrimonio Cultural Inmaterial, conserva practicas agricolas, tecnicas y rituales transmitidos entre generaciones.</p>
+            <p class="heritage-description">Desde la milpa hasta la mesa, sus sabores cuentan una historia de adaptacion, celebracion y profundo vinculo con la tierra.</p>
           </div>
         </article>
       </div>
     </section>
 
-    <section class="dishes-section">
+    <section class="dishes-section" aria-labelledby="dishes-title">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">Platos que cuentan historias</h2>
+          <h2 class="section-title" id="dishes-title">Platos que cuentan historias</h2>
           <p class="section-subtitle">03 sabores para descubrir</p>
         </div>
         <div class="cards-grid">
           <article class="card">
-            <div class="image-placeholder" aria-label="imagen / mole poblano" role="img">
-              <div class="placeholder-border"></div>
-              <div class="placeholder-content">
-                <span class="placeholder-icon">＋</span>
-                <span class="placeholder-label">IMAGEN / MOLE POBLANO</span>
-              </div>
+            <div class="card-media">
+              <img src="assets/img/plato-mole.svg" alt="Plato de mole poblano con ajonjoli" width="800" height="600" loading="lazy">
             </div>
             <div class="card-content">
               <p class="card-meta">01 / cocina tradicional</p>
               <h3 class="card-title">Mole Poblano</h3>
-              <p class="card-description">Nacido del encuentro entre ingredientes indígenas y técnicas virreinales, el mole poblano es una receta de celebración que transforma la memoria en sabor.</p>
+              <p class="card-description">Nacido del encuentro entre ingredientes indigenas y tecnicas virreinales, el mole poblano es una receta de celebracion que transforma la memoria en sabor.</p>
               <div class="ingredients">
                 <p class="ingredients-title">Ingredientes clave</p>
                 <ul class="ingredients-list">
@@ -84,22 +79,18 @@
           </article>
 
           <article class="card">
-            <div class="image-placeholder" aria-label="imagen / tacos tradicionales" role="img">
-              <div class="placeholder-border"></div>
-              <div class="placeholder-content">
-                <span class="placeholder-icon">＋</span>
-                <span class="placeholder-label">IMAGEN / TACOS TRADICIONALES</span>
-              </div>
+            <div class="card-media">
+              <img src="assets/img/plato-tacos.svg" alt="Tacos tradicionales con tortilla de maiz, cebolla y cilantro" width="800" height="600" loading="lazy">
             </div>
             <div class="card-content">
               <p class="card-meta">02 / cocina tradicional</p>
               <h3 class="card-title">Tacos Tradicionales</h3>
-              <p class="card-description">De la tortilla cotidiana a una expresión regional, los tacos reúnen territorio, oficio y comunidad en una preparación que cambia de norte a sur.</p>
+              <p class="card-description">De la tortilla cotidiana a una expresion regional, los tacos reunen territorio, oficio y comunidad en una preparacion que cambia de norte a sur.</p>
               <div class="ingredients">
                 <p class="ingredients-title">Ingredientes clave</p>
                 <ul class="ingredients-list">
-                  <li>Maíz nixtamalizado</li>
-                  <li>Proteína regional</li>
+                  <li>Maiz nixtamalizado</li>
+                  <li>Proteina regional</li>
                   <li>Cebolla</li>
                   <li>Cilantro</li>
                 </ul>
@@ -108,12 +99,8 @@
           </article>
 
           <article class="card">
-            <div class="image-placeholder" aria-label="imagen / bebidas ancestrales" role="img">
-              <div class="placeholder-border"></div>
-              <div class="placeholder-content">
-                <span class="placeholder-icon">＋</span>
-                <span class="placeholder-label">IMAGEN / BEBIDAS ANCESTRALES</span>
-              </div>
+            <div class="card-media">
+              <img src="assets/img/plato-bebidas.svg" alt="Atole, aguas y bebidas ancestrales de maiz y cacao" width="800" height="600" loading="lazy">
             </div>
             <div class="card-content">
               <p class="card-meta">03 / cocina tradicional</p>
@@ -122,7 +109,7 @@
               <div class="ingredients">
                 <p class="ingredients-title">Ingredientes clave</p>
                 <ul class="ingredients-list">
-                  <li>Maíz</li>
+                  <li>Maiz</li>
                   <li>Cacao</li>
                   <li>Agave</li>
                   <li>Frutas locales</li>
@@ -135,29 +122,29 @@
     </section>
   </main>
 
-  <footer id="contacto" class="site-footer" role="contentinfo">
+  <footer id="contacto" class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <p class="footer-logo">México Cultural</p>
-        <p class="footer-tagline">Una ventana a los colores, el ritmo y la tradición.</p>
+        <p class="footer-logo">Mexico Cultural</p>
+        <p class="footer-tagline">Una ventana a los colores, el ritmo y la tradicion.</p>
+        <p class="footer-credit">Proyecto academico UNAD — Programacion Web 213025, Fase 2. Contenido cultural con fines educativos.</p>
       </div>
       <nav class="footer-nav" aria-label="Mapa del sitio">
         <span class="footer-nav-title">Mapa del sitio</span>
-        <a href="index.html#inicio" class="footer-link">Home</a>
-        <a href="festivals.html" class="footer-link">Festivals</a>
-        <a href="gastronomy.html" class="footer-link">Gastronomy</a>
+        <a href="index.html" class="footer-link">Inicio</a>
+        <a href="festivals.html" class="footer-link">Festivales</a>
+        <a href="gastronomy.html" class="footer-link">Gastronomia</a>
       </nav>
       <div class="footer-social">
-        <span class="footer-nav-title">Síguenos</span>
-        <div class="social-links" aria-label="Redes sociales">
-          <a href="#contacto" class="social-link" aria-label="Instagram">ig</a>
-          <a href="#contacto" class="social-link" aria-label="Facebook">fb</a>
-          <a href="#contacto" class="social-link" aria-label="X">x</a>
+        <span class="footer-nav-title">Idioma</span>
+        <div class="social-links">
+          <a href="gastronomy.html" class="social-link" lang="es" aria-current="true">ES</a>
+          <a href="gastronomy-en.html" class="social-link" lang="en">EN</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="copyright">© 2024 México Cultural — Todos los derechos reservados</p>
+      <p class="copyright">© 2024 Mexico Cultural — Todos los derechos reservados</p>
     </div>
   </footer>
 

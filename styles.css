@@ -912,3 +912,125 @@ main {
   color: var(--primary-foreground);
   opacity: 0.5;
 }
+/* ==================================================
+   FASE 2 — Identidad mexicana + accesibilidad
+   Conserva tokens base, amplia sin destruir.
+   ================================================== */
+:root {
+  --cempasuchil: #E65100;
+  --cempasuchil-dark: #B53E00;
+  --obispo: #4A148C;
+  --fiesta: #FDD835;
+  --blanco: #FFFFFF;
+  --negro: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cempasuchil: #FF8A3D;
+    --cempasuchil-dark: #E65100;
+    --obispo: #CE93D8;
+    --fiesta: #FDD835;
+  }
+}
+
+/* Foco visible AA */
+:focus-visible {
+  outline: 3px solid var(--cempasuchil);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--negro);
+  color: var(--blanco);
+  padding: 0.75rem 1rem;
+  z-index: 200;
+  font-size: 0.875rem;
+}
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+/* Imagenes reales locales */
+.card img,
+.hero-media img,
+.tradition-image img,
+.heritage-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-media,
+.tradition-image,
+.heritage-image,
+.card-media {
+  overflow: hidden;
+  background: var(--muted);
+}
+.hero-media { aspect-ratio: 4 / 3; border: 1px solid var(--border); }
+.card-media { aspect-ratio: 4 / 3; margin: -0.75rem -0.75rem 0; border-bottom: 1px solid var(--border); }
+.tradition-image, .heritage-image { min-height: 16rem; }
+@media (min-width: 768px) {
+  .tradition-image, .heritage-image { min-height: 20rem; }
+}
+
+/* Acentos editoriales morados */
+.hero-tag, .page-tag, .card-meta, .tradition-meta,
+.heritage-meta, .section-subtitle, .ingredients-title {
+  color: var(--obispo);
+}
+.hero-tag::before, .page-tag::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--fiesta);
+  border: 1px solid var(--negro);
+  margin-right: 0.5rem;
+  vertical-align: baseline;
+}
+
+/* CTA naranja accion */
+.btn-primary {
+  border-color: var(--cempasuchil-dark);
+  background-color: var(--cempasuchil-dark);
+  color: var(--blanco);
+}
+.btn-primary:hover { background-color: var(--cempasuchil); border-color: var(--cempasuchil); transform: translateY(-0.125rem); }
+.btn-outline {
+  border-color: var(--blanco);
+  color: var(--blanco);
+  background: transparent;
+}
+.btn-outline:hover { background: var(--cempasuchil-dark); border-color: var(--cempasuchil-dark); color: var(--blanco); }
+.card-link { border-bottom-color: var(--cempasuchil-dark); }
+.card:hover { border-color: var(--obispo); }
+.nav-link.active { text-decoration-color: var(--cempasuchil-dark); }
+.cta-card { border-color: var(--negro); }
+.cta-tag { color: var(--fiesta); opacity: 0.9; }
+
+/* Toggle idioma como enlaces reales */
+.lang-toggle { gap: 0.5rem; }
+.lang-toggle a { color: inherit; text-decoration: none; padding: 0 0.15rem; }
+.lang-toggle a[aria-current="true"] { text-decoration: underline; text-underline-offset: 3px; }
+.lang-toggle a:hover { text-decoration: underline; }
+
+/* Footer academico */
+.footer-credit {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  opacity: 0.6;
+  max-width: 20rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
