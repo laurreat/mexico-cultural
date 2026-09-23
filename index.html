@@ -1,99 +1,86 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>México: Colores, Ritmo y Tradición</title>
-  <meta name="description" content="Descubre la magia, los sonidos y los sabores de México.">
+  <title>Mexico: Colores, Ritmo y Tradicion</title>
+  <meta name="description" content="Descubre la magia, los sonidos y los sabores de Mexico.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header" role="banner">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
     <div class="container header-inner">
-      <a href="#inicio" class="logo" aria-label="México Cultural - Inicio">México Cultural</a>
-      <nav class="nav" aria-label="Navegación principal">
-        <a href="#inicio" class="nav-link active">Home</a>
-        <a href="festivals.html" class="nav-link">Festivals</a>
-        <a href="gastronomy.html" class="nav-link">Gastronomy</a>
-        <a href="#contacto" class="nav-link">Contact</a>
+      <a href="index.html" class="logo" aria-label="Mexico Cultural - Inicio">Mexico Cultural</a>
+      <nav class="nav" aria-label="Navegacion principal">
+        <a href="index.html" class="nav-link active" aria-current="page">Inicio</a>
+        <a href="festivals.html" class="nav-link">Festivales</a>
+        <a href="gastronomy.html" class="nav-link">Gastronomia</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
       </nav>
-      <button type="button" class="lang-toggle" aria-label="Cambiar idioma">
-        [ ES <span class="lang-separator">|</span> EN ]
-      </button>
+      <div class="lang-toggle" aria-label="Idioma">
+        <a href="index.html" aria-current="true" lang="es">ES</a>
+        <span class="lang-separator" aria-hidden="true">|</span>
+        <a href="index-en.html" lang="en">EN</a>
+      </div>
     </div>
   </header>
 
-  <main role="main">
-    <section id="inicio" class="hero">
+  <main id="contenido">
+    <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
         <div class="hero-content">
           <p class="hero-tag">[ Archivo cultural / 001 ]</p>
-          <h1 class="hero-title">Descubre la Magia y Tradiciones de México</h1>
-          <p class="hero-description">Un recorrido por las historias, los sonidos y los sabores que mantienen viva la identidad de un país diverso.</p>
+          <h1 class="hero-title" id="hero-title">Descubre la Magia y Tradiciones de Mexico</h1>
+          <p class="hero-description">Un recorrido por las historias, los sonidos y los sabores que mantienen viva la identidad de un pais diverso.</p>
           <a href="#destacados" class="btn btn-primary">Explorar Tradiciones <span aria-hidden="true">→</span></a>
         </div>
-        <div class="image-placeholder" aria-label="imagen principal" role="img">
-          <div class="placeholder-border"></div>
-          <div class="placeholder-content">
-            <span class="placeholder-icon">＋</span>
-            <span class="placeholder-label">IMAGEN PRINCIPAL</span>
-          </div>
+        <div class="hero-media">
+          <img src="assets/img/hero-cultura.svg" alt="Ilustracion de papel picado, flor de cempasuchil y colores de fiesta mexicana" width="800" height="600" fetchpriority="high">
         </div>
       </div>
     </section>
 
-    <section id="destacados" class="featured">
+    <section id="destacados" class="featured" aria-labelledby="destacados-title">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">Aspectos Culturales Destacados</h2>
+          <h2 class="section-title" id="destacados-title">Aspectos Culturales Destacados</h2>
           <p class="section-subtitle">03 historias para comenzar</p>
         </div>
         <div class="cards-grid">
           <article class="card">
-            <div class="image-placeholder" aria-label="imagen 01" role="img">
-              <div class="placeholder-border"></div>
-              <div class="placeholder-content">
-                <span class="placeholder-icon">＋</span>
-                <span class="placeholder-label">IMAGEN 01</span>
-              </div>
+            <div class="card-media">
+              <img src="assets/img/card-muertos.svg" alt="Calavera de azucar con cempasuchil del Dia de Muertos" width="800" height="600" loading="lazy">
             </div>
             <div class="card-content">
-              <p class="card-meta">01 / tradición</p>
-              <h3 class="card-title">Día de Muertos</h3>
-              <p class="card-description">Una celebración llena de memoria, color y símbolos que honran a quienes ya no están.</p>
-              <a href="#contacto" class="card-link">Leer más <span aria-hidden="true">↗</span></a>
+              <p class="card-meta">01 / tradicion</p>
+              <h3 class="card-title">Dia de Muertos</h3>
+              <p class="card-description">Una celebracion llena de memoria, color y simbolos que honran a quienes ya no estan.</p>
+              <a href="festivals.html" class="card-link">Leer mas <span aria-hidden="true">↗</span></a>
             </div>
           </article>
 
           <article class="card">
-            <div class="image-placeholder" aria-label="imagen 02" role="img">
-              <div class="placeholder-border"></div>
-              <div class="placeholder-content">
-                <span class="placeholder-icon">＋</span>
-                <span class="placeholder-label">IMAGEN 02</span>
-              </div>
+            <div class="card-media">
+              <img src="assets/img/card-mariachi.svg" alt="Siluetas de mariachis con trompetas y guitarras en fiesta" width="800" height="600" loading="lazy">
             </div>
             <div class="card-content">
-              <p class="card-meta">02 / tradición</p>
-              <h3 class="card-title">Música y Mariachi</h3>
-              <p class="card-description">El sonido de México: tradición, emoción y encuentros que se cuentan cantando.</p>
-              <a href="#contacto" class="card-link">Leer más <span aria-hidden="true">↗</span></a>
+              <p class="card-meta">02 / tradicion</p>
+              <h3 class="card-title">Musica y Mariachi</h3>
+              <p class="card-description">El sonido de Mexico: tradicion, emocion y encuentros que se cuentan cantando.</p>
+              <a href="festivals.html" class="card-link">Leer mas <span aria-hidden="true">↗</span></a>
             </div>
           </article>
 
           <article class="card">
-            <div class="image-placeholder" aria-label="imagen 03" role="img">
-              <div class="placeholder-border"></div>
-              <div class="placeholder-content">
-                <span class="placeholder-icon">＋</span>
-                <span class="placeholder-label">IMAGEN 03</span>
-              </div>
+            <div class="card-media">
+              <img src="assets/img/card-gastronomia.svg" alt="Mazorca de maiz dorado simbolo de la cocina mexicana" width="800" height="600" loading="lazy">
             </div>
             <div class="card-content">
-              <p class="card-meta">03 / tradición</p>
-              <h3 class="card-title">Gastronomía Tradicional</h3>
-              <p class="card-description">Sabores regionales, recetas heredadas y una mesa que reúne a toda la comunidad.</p>
-              <a href="#contacto" class="card-link">Leer más <span aria-hidden="true">↗</span></a>
+              <p class="card-meta">03 / tradicion</p>
+              <h3 class="card-title">Gastronomia Tradicional</h3>
+              <p class="card-description">Sabores regionales, recetas heredadas y una mesa que reune a toda la comunidad.</p>
+              <a href="gastronomy.html" class="card-link">Leer mas <span aria-hidden="true">↗</span></a>
             </div>
           </article>
         </div>
@@ -101,29 +88,29 @@
     </section>
   </main>
 
-  <footer id="contacto" class="site-footer" role="contentinfo">
+  <footer id="contacto" class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <p class="footer-logo">México Cultural</p>
-        <p class="footer-tagline">Una ventana a los colores, el ritmo y la tradición.</p>
+        <p class="footer-logo">Mexico Cultural</p>
+        <p class="footer-tagline">Una ventana a los colores, el ritmo y la tradicion.</p>
+        <p class="footer-credit">Proyecto academico UNAD — Programacion Web 213025, Fase 2. Contenido cultural con fines educativos.</p>
       </div>
       <nav class="footer-nav" aria-label="Mapa del sitio">
         <span class="footer-nav-title">Mapa del sitio</span>
-        <a href="#inicio" class="footer-link">Home</a>
-        <a href="festivals.html" class="footer-link">Festivals</a>
-        <a href="gastronomy.html" class="footer-link">Gastronomy</a>
+        <a href="index.html" class="footer-link">Inicio</a>
+        <a href="festivals.html" class="footer-link">Festivales</a>
+        <a href="gastronomy.html" class="footer-link">Gastronomia</a>
       </nav>
       <div class="footer-social">
-        <span class="footer-nav-title">Síguenos</span>
-        <div class="social-links" aria-label="Redes sociales">
-          <a href="#contacto" class="social-link" aria-label="Instagram">ig</a>
-          <a href="#contacto" class="social-link" aria-label="Facebook">fb</a>
-          <a href="#contacto" class="social-link" aria-label="X">x</a>
+        <span class="footer-nav-title">Idioma</span>
+        <div class="social-links">
+          <a href="index.html" class="social-link" lang="es" aria-current="true">ES</a>
+          <a href="index-en.html" class="social-link" lang="en">EN</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="copyright">© 2024 México Cultural — Todos los derechos reservados</p>
+      <p class="copyright">© 2024 Mexico Cultural — Todos los derechos reservados</p>
     </div>
   </footer>
 
