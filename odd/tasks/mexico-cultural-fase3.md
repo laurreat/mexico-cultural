@@ -48,10 +48,16 @@ no broken assets). The real defects found:
 
 ## Scope
 
-In: `css/styles.css`, `script.js`, the 6 HTML pages, Phase 3 documentation.
+In: `css/styles.css`, `script.js`, the 6 HTML pages, Phase 3 documentation, and
+(additive, T9) responsive WebP derivatives under `images/`.
 Out: content rewrite, new frameworks, build tooling, visual redesign, the
 "Contacto" content decision (documented as pending), dead `.image-placeholder`
-CSS removal (kept to avoid review noise), image re-encoding.
+CSS removal (kept to avoid review noise), modification or re-compression of the 12
+original images.
+
+T9 was added on explicit user request after the Phase 3 verification closed, so the
+"image re-encoding" exclusion applies to the originals only: the derivatives are new
+files and the originals remain untouched as the `src` fallback.
 
 ## Route
 
@@ -59,6 +65,11 @@ Substantial, 8 files, 1 writer delegated (writer trigger: 2+ non-trivial files).
 Verification is a bounded parent action (html-validate, Node, Playwright + Edge,
 axe-core, Lighthouse) plus screenshots. TDD: not configured in this project ->
 ordinary functional checks.
+
+T9 (image optimization) ran after the Phase 3 verification, on explicit user
+request, as a measured loop: render widths measured first, variants generated with
+local Pillow, the 6-file HTML edit applied by script, then before/after Lighthouse
+runs. It never changed content, layout or compression quality of the originals.
 
 ## Tasks
 
@@ -76,6 +87,9 @@ ordinary functional checks.
 - [x] T7 Documentation `docs/fase-3/INFORME_FASE3.md`
 - [x] T8 Follow-ups from measurement: 24x24 language targets, favicon, drop
       relative hreflang, strip BOM, move `.js` class to `<head>` to remove CLS
+- [x] T9 LCP optimization: 44 responsive WebP variants (480/640/800/1200),
+      `srcset`/`sizes` on all 11 content images, `fetchpriority="high"` + no lazy
+      on each page's first image; re-measured with 3 Lighthouse runs per page
 
 ## Acceptance criteria
 
@@ -102,9 +116,12 @@ c29a0db  fix(html): expose language switcher and label repeated links
 e1b03e0  fix(css): enlarge language switcher targets to 24x24
 d940bda  fix(html): add favicon and drop invalid relative hreflang alternates
 fe833f5  perf(js): apply js class in head to prevent nav layout shift
+c5b2d44  perf(images): add responsive WebP variants for all content images
+c325e48  perf(html): serve responsive images and prioritize the LCP image
 ```
 
-Diff vs base `946db6a`: 9 files, +323 / -108.
+Diff vs base `946db6a`: 9 text files, +323 / -108, plus 44 new WebP binaries
+(`c5b2d44`, 4.15 MB on disk; one variant is downloaded per image at runtime).
 
 ### HTML validation
 
@@ -125,21 +142,63 @@ button hover 3.79 -> 7.13; card-link hover 4.17 -> 6.69; dark footer 3.06-4.11 -
 
 ### Lighthouse 13.5.0 (mobile, local http.server)
 
-| Page | Perf before/after | A11y before/after | BP before/after | SEO | CLS |
-|---|---|---|---|---|---|
-| index.html | 90 / 90 | 95 / **100** | 96 / **100** | 100 | 0 |
-| index-en.html | 90 / 90 | 95 / **100** | 96 / **100** | 100 | 0 |
-| festivals.html | 100 / 100 | 95 / **100** | 96 / **100** | 100 | 0 |
-| festivals-en.html | 100 / 100 | 95 / **100** | 96 / **100** | 100 | 0 |
-| gastronomy.html | 93 / 93 | 95 / **100** | 96 / **100** | 100 | 0 |
-| gastronomy-en.html | 100 / 100 | 95 / **100** | 96 / **100** | 100 | 0 |
+Final state, median of 3 runs per page (LCP was bimodal before T9, so a single run
+was not representative).
 
-Baseline failing a11y audit: `color-contrast` only. Baseline BP failure:
-`errors-in-console` (favicon 404). Both resolved.
+| Page | Perf | A11y | BP | SEO | LCP median | CLS | Bytes |
+|---|---|---|---|---|---|---|---|
+| index.html | 99 | 100 | 100 | 100 | 2.19 s | 0 | 313 KB |
+| index-en.html | 99 | 100 | 100 | 100 | 2.19 s | 0 | 313 KB |
+| festivals.html | 100 | 100 | 100 | 100 | 1.41 s | 0 | 249 KB |
+| festivals-en.html | 100 | 100 | 100 | 100 | 1.82 s | 0 | 249 KB |
+| gastronomy.html | 100 | 100 | 100 | 100 | 1.85 s | 0 | 320 KB |
+| gastronomy-en.html | 99 | 100 | 100 | 100 | 1.96 s | 0 | 320 KB |
+
+Accessibility went 95 -> 100 and best practices 96 -> 100 in the Phase 3 commits
+(the baseline failures were `color-contrast` and `errors-in-console` from the
+favicon 404). Both resolved.
 
 Regression found and fixed: the mobile disclosure initially produced CLS 0.183
 (menu painted open, then collapsed). Moving `document.documentElement.classList.add('js')`
 into an inline `<head>` script restored CLS 0 and kept the no-JS fallback.
+
+### LCP optimization (T9)
+
+Diagnosis: `image-delivery-insight` estimated 567-573 KiB of waste; all 11 images
+were served at 1448x1086 while rendering at 270-718 px. In `gastronomy*` the LCP
+element was the first `heritage-image` with `loading="lazy"` (`lcp-discovery-insight`
+= 0). In `index*` the hero was already discoverable and prioritized; its 3.8 s was
+the simulated transfer of 266 KB, not server or CPU time.
+
+Applied: 44 WebP variants (11 x 480/640/800/1200, Pillow LANCZOS, quality 82,
+method 6), `srcset` with the untouched original as the 1448w step and `src`
+fallback, container-derived `sizes`, and `fetchpriority="high"` with no lazy on the
+first image of `gastronomy*` and `festivals*`. No `<link rel="preload">`: the
+resource was already discoverable, so the fix was priority, not discovery.
+
+| Page | LCP before | LCP after | Change | Perf | Bytes |
+|---|---|---|---|---|---|
+| index.html | 3.77 s | 2.19 s | -42% | 89 -> 99 | 731 -> 313 KB |
+| index-en.html | 3.71 s | 2.19 s | -41% | 90 -> 99 | 731 -> 313 KB |
+| gastronomy.html | 3.27 s | 1.85 s | -44% | 93 -> 100 | 743 -> 320 KB |
+| gastronomy-en.html | 1.25 s | 1.96 s | +58%* | 100 -> 99 | 742 -> 320 KB |
+
+\* Lucky branch of a bimodal distribution. Pooling both gastronomy pages: 6 runs
+before median 2.26 s / worst 3.33 s; after median 1.94 s / worst 1.98 s. The
+bimodality is gone.
+
+`festivals*` has no 3-run baseline (single Phase 3 run: 0.9 s / 1.2 s at 554 KB).
+Same LCP element, unchanged FCP, identical Lighthouse version and throttling: the
+observed difference is recorded as simulation variance, not improvement or
+regression. `image-delivery-insight` dropped to 66-86 KiB per page.
+
+No-visual-regression evidence: variant SSIM 0.9979-0.9992 against the LANCZOS
+reference; bytes-per-pixel 1.4x-2.6x the original; browser-rendered PSNR 28.0-33.5
+dB with gradient energy 0.86x-1.14x (4 of 6 at or above 1.0, i.e. resampling
+variance, not systematic softening); 18 before/after screenshots at PSNR 34.9-38.6
+dB full page, 43.5 dB open menu, 99.0 dB focus crop (identical). `currentSrc`
+verified: 412@1.75 -> 640, 390@1 -> 480, 390@2 -> 800, 1280@2 -> 1200, 768 -> 800
+on cards.
 
 ### Keyboard (360px)
 
@@ -159,16 +218,24 @@ element outside viewport.
 
 ### Integrity
 
-128 `href`/`src` references: 0 missing files. 14 internal anchors resolve. ES<->EN
-pairs correct in both directions. 0 console errors in 12 runs.
+169 local paths checked across the 6 pages (86 `href`, 28 `src`, 55 `srcset`
+entries): 0 missing files. 14 internal anchors resolve. All 11 HTML-referenced
+images have `srcset`; all 44 variants are referenced (0 orphans); ES<->EN pairs
+correct in both directions. 0 console errors in 12 runs. The 12 original images are
+unmodified (`git status` shows no ` M` under `images/`).
 
 ### Screenshots
 
-`docs/fase-3/capturas/` — 10 PNG files (dimensions verified non-empty). Visual
-review by a human is still pending because this agent cannot interpret images.
+`docs/fase-3/capturas/` — 10 PNG files (dimensions verified non-empty), captured
+before T9 and intentionally not overwritten: they serve as the "before" evidence.
+Same dimensions as the final state; diff 34.85-38.57 dB, focus crop identical.
+Visual review by a human is still pending because this agent cannot interpret
+images.
 
 ## Next step
 
 Report delivered at `docs/fase-3/INFORME_FASE3.md`. Nothing pushed. Pending human
-checks: visual review of screenshots, screen-reader test, physical devices, native
-200% browser zoom.
+checks: visual review of screenshots and of the image variants, screen-reader test,
+physical devices, native 200% browser zoom. Optional: close the residual 66-86 KiB
+by lowering WebP quality or moving to AVIF — deliberately not done without author
+approval.

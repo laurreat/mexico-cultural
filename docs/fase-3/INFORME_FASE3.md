@@ -17,19 +17,25 @@ movil accesible y se valido el resultado con pruebas ejecutadas: validacion HTML
 axe-core, calculo de contraste, Lighthouse, recorrido de teclado, escenario sin
 JavaScript y reflow a 320 px.
 
-Resultado medido en Lighthouse 13.5.0 (movil, todas las paginas):
+Resultado medido en Lighthouse 13.5.0 (movil; mediana de 3 corridas por pagina):
 
 | Metrica | Antes (`946db6a`) | Despues |
 |---|---|---|
 | Accesibilidad | 95 | **100** en las 6 paginas |
 | Best practices | 96 | **100** |
 | SEO | 100 | 100 |
-| Performance | 90–100 | 90–100 (sin cambios) |
+| Performance | 90–100 | **99–100** |
+| LCP de la peor pagina | 3.77 s | **2.19 s** |
 | CLS | 0 | **0** |
+
+La optimizacion de imagenes responsive (seccion 7) redujo el LCP de las paginas con
+linea base comparable entre 41 % y 44 %. En `festivals*` no habia linea base de 3
+corridas y la diferencia observada no es atribuible al cambio: se documenta como
+limitacion en 7.5, no como mejora.
 
 No se declara conformidad total con WCAG 2.2 AA: se declara que las comprobaciones
 automatizadas y manuales listadas en la seccion 6 no arrojan fallos, y que quedan las
-verificaciones humanas pendientes de la seccion 8.
+verificaciones humanas pendientes de la seccion 9.
 
 ---
 
@@ -80,6 +86,8 @@ Clasificados por impacto. La columna "Criterio" referencia WCAG 2.2.
 | `index.html`, `festivals.html`, `gastronomy.html` | Boton de menu, nav de idioma semantica, `tabindex="-1"` en `main`, nombres accesibles de tarjetas, favicon, sin BOM |
 | `index-en.html`, `festivals-en.html`, `gastronomy-en.html` | Los mismos cambios con sus etiquetas en ingles (`Menu`, `Language`, `Change language`, `Read more: ...`) |
 | `images/favicon.svg` | Nuevo. Icono SVG simple con la paleta del sitio |
+| `images/*-{480,640,800,1200}.webp` | 44 variantes derivadas de las 11 imagenes usadas en HTML. Los 12 originales quedan intactos |
+| Los 6 HTML (rendimiento) | `srcset`/`sizes` por contenedor real y prioridad alta para la primera imagen de `gastronomy*` y `festivals*` (seccion 7) |
 
 ### 3.1 Explicacion por archivo
 
@@ -140,9 +148,12 @@ c29a0db  fix(html): expose language switcher and label repeated links
 e1b03e0  fix(css): enlarge language switcher targets to 24x24
 d940bda  fix(html): add favicon and drop invalid relative hreflang alternates
 fe833f5  perf(js): apply js class in head to prevent nav layout shift
+c5b2d44  perf(images): add responsive WebP variants for all content images
+c325e48  perf(html): serve responsive images and prioritize the LCP image
 ```
 
-Nada fue publicado (`git push` no se ejecuto).
+El commit de este informe cierra la serie. Nada fue publicado (`git push` no se
+ejecuto).
 
 ---
 
@@ -226,23 +237,27 @@ color, independientemente de axe. Ver tabla 4.1: **15 de 15 pares pasan**.
 ### 6.4 Lighthouse 13.5.0
 
 Servidor local `python -m http.server`, perfil movil por defecto de Lighthouse.
+Los valores son la **mediana de 3 corridas** por pagina sobre el estado final. El
+LCP era bimodal antes de la optimizacion, asi que un valor unico no era
+representativo.
 
-| Pagina | Perf. antes | Perf. despues | A11y antes | A11y despues | BP antes | BP despues | SEO | CLS |
-|---|---|---|---|---|---|---|---|---|
-| `index.html` | 90 | 90 | 95 | **100** | 96 | **100** | 100 | 0 |
-| `index-en.html` | 90 | 90 | 95 | **100** | 96 | **100** | 100 | 0 |
-| `festivals.html` | 100 | 100 | 95 | **100** | 96 | **100** | 100 | 0 |
-| `festivals-en.html` | 100 | 100 | 95 | **100** | 96 | **100** | 100 | 0 |
-| `gastronomy.html` | 93 | 93 | 95 | **100** | 96 | **100** | 100 | 0 |
-| `gastronomy-en.html` | 100 | 100 | 95 | **100** | 96 | **100** | 100 | 0 |
+| Pagina | Perf | A11y | BP | SEO | LCP (3 corridas) | LCP mediana | FCP mediana | CLS | TBT | Peso |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `index.html` | 99 | 100 | 100 | 100 | 2.19 / 2.21 / 1.68 | 2.19 s | 0.93 s | 0 | 0 ms | 313 KB |
+| `index-en.html` | 99 | 100 | 100 | 100 | 2.12 / 2.19 / 2.24 | 2.19 s | 0.92 s | 0 | 0 ms | 313 KB |
+| `festivals.html` | 100 | 100 | 100 | 100 | 1.38 / 1.41 / 1.53 | 1.41 s | 0.93 s | 0 | 0 ms | 249 KB |
+| `festivals-en.html` | 100 | 100 | 100 | 100 | 1.82 / 1.82 / 1.81 | 1.82 s | 0.92 s | 0 | 0 ms | 249 KB |
+| `gastronomy.html` | 100 | 100 | 100 | 100 | 1.64 / 1.98 / 1.85 | 1.85 s | 0.95 s | 0 | 0 ms | 320 KB |
+| `gastronomy-en.html` | 99 | 100 | 100 | 100 | 1.91 / 1.96 / 1.97 | 1.96 s | 0.92 s | 0 | 0 ms | 320 KB |
 
 En la linea base, la unica auditoria de accesibilidad que fallaba era
 `color-contrast`. Las mejoras de best practices corresponden al favicon (se elimino
 el 404 de consola) y al retiro de los `hreflang` relativos.
 
-Performance no se movio respecto de la base. Las dos paginas de inicio y
-`gastronomy.html` quedan en 90–93 por LCP de 3.3–3.8 s: es un comportamiento
-preexistente, no una regresion.
+El cambio de performance respecto de la base se debe a las imagenes responsive:
+`index*` paso de 89–90 a 99 y `gastronomy.html` de 93 a 100. `gastronomy-en.html`
+bajo de 100 a 99 pese a que su LCP medido empeoro solo frente a la rama afortunada
+de una distribucion bimodal (ver 7.5); su LCP final sigue por debajo de 2.0 s.
 
 ### 6.5 Teclado (360 px)
 
@@ -250,7 +265,7 @@ preexistente, no una regresion.
 |---|---|
 | Primer `Tab` | enlace "Saltar al contenido", anillo `solid 3px rgb(230, 81, 0)` |
 | `Enter` en el salto | foco en `main#contenido` |
-| `Tab` hasta el boton | `BUTTON.nav-toggle`, etiqueta "Menu", mismo anillo visible |
+| `Tab` hasta el boton | `BUTTON.nav-toggle` de 44×44 px, etiqueta "Menu", mismo anillo visible |
 | `Enter` | `aria-expanded="true"`, nav `flex`, alto 162 px |
 | `Tab` | primer enlace de nav ("Inicio"), 360×40 px |
 | `Escape` | nav cerrado, `aria-expanded="false"`, foco devuelto al boton |
@@ -272,10 +287,12 @@ preexistente, no una regresion.
 
 ### 6.8 Integridad de enlaces y recursos
 
-128 referencias `href`/`src` revisadas en las 6 paginas: **0 archivos faltantes**.
-Las 14 anclas internas (`#contenido`, `#content`, `#contacto`, `#contact`,
-`#destacados`, `#featured`) resuelven a un `id` existente. Los pares ES↔EN apuntan
-al archivo correcto en ambas direcciones.
+114 referencias `href`/`src` y 55 entradas de `srcset` (169 rutas locales) revisadas
+en las 6 paginas: **0 archivos faltantes**. Las 14 anclas internas (`#contenido`,
+`#content`, `#contacto`, `#contact`, `#destacados`, `#featured`) resuelven a un `id`
+existente. Las 11 imagenes usadas en HTML tienen `srcset`, las 44 variantes
+generadas estan referenciadas (0 huerfanas) y los pares ES↔EN apuntan al archivo
+correcto en ambas direcciones.
 
 ### 6.9 Consola del navegador
 
@@ -283,7 +300,149 @@ al archivo correcto en ambas direcciones.
 
 ---
 
-## 7. Lo que no se cambio y por que
+## 7. Optimizacion de LCP con imagenes responsive
+
+### 7.1 Diagnostico medido
+
+Lighthouse 13.5.0 estimaba 567–573 KiB de ahorro en `image-delivery-insight`: las
+11 imagenes usadas se servian a 1448×1086 aunque el navegador las pintaba entre
+270 y 718 px de ancho, segun el viewport. La medicion de anchos reales (no
+estimados) se hizo con Playwright a 320/360/390/414/640/768/1024/1280/1440/1920,
+incluyendo el ancho intrinseco que exige `object-fit: cover`.
+
+En `index*` el elemento LCP era el hero: TTFB 9 ms, carga 19 ms, render 140 ms. Los
+~3.8 s no eran de servidor ni de CPU: eran la transferencia simulada de los 266 KB
+del original.
+
+En `gastronomy*` el elemento LCP era la primera imagen `heritage`, que tenia
+`loading="lazy"`: `lcp-discovery-insight` puntuaba 0 y `eagerlyLoaded` era `false`.
+Eso explica la bimodalidad observada (1.2 s frente a 3.3 s con el mismo elemento):
+si el lazy-load llegaba tarde, la imagen se convertia en LCP tardio.
+
+### 7.2 Esquema aplicado
+
+- **44 variantes WebP** (11 imagenes × 480/640/800/1200), generadas con Pillow
+  12.3.0: LANCZOS, `quality=82`, `method=6`. Los 12 originales no se modificaron;
+  el original queda como `src` de respaldo y como ultimo escalon del `srcset`
+  (1448w).
+- **`srcset`/`sizes` por contenedor real**, no por nombre de archivo:
+
+| Contenedor | `sizes` |
+|---|---|
+| Hero | `(min-width: 1024px) 540px, calc(100vw - 50px)` |
+| `tradition-image` / `heritage-image` | `(min-width: 768px) 600px, calc(100vw - 50px)` |
+| Tarjetas | `(min-width: 1024px) 385px, (min-width: 640px) 45vw, calc(100vw - 50px)` |
+
+- **Escalon de 640 px**: el perfil movil de Lighthouse (412 px a DPR 1.75) necesita
+  634 px. Con 480/800 elegia 800 y desperdiciaba ~40 KB solo en el hero. El escalon
+  640 sirve exactamente ese caso.
+- **Prioridad del LCP**: se retiro `loading="lazy"` y se agrego
+  `fetchpriority="high"` a la primera imagen de `gastronomy*` y `festivals*`. El
+  hero de `index*` ya tenia `fetchpriority="high"`.
+- **Sin `<link rel="preload">`**: el recurso ya era descubrible en el documento
+  inicial (`requestDiscoverable: true`); el problema era la prioridad, no el
+  descubrimiento.
+
+Un primer intento asigno `sizes` de 600 px a `plato-mole`, `plato-tacos` y
+`plato-bebidas` por el nombre del archivo. Son tarjetas dentro de `gastronomy`, no
+imagenes `heritage`: en tablet cargaban la variante de 1200 px. Se detecto con la
+verificacion de `currentSrc` y se corrigio usando el contenedor real.
+
+### 7.3 Antes y despues (mediana de 3 corridas)
+
+| Pagina | LCP antes | LCP despues | Cambio | Perf. | Peso |
+|---|---|---|---|---|---|
+| `index.html` | 3.77 s | **2.19 s** | −42 % | 89 → 99 | 731 → 313 KB |
+| `index-en.html` | 3.71 s | **2.19 s** | −41 % | 90 → 99 | 731 → 313 KB |
+| `gastronomy.html` | 3.27 s | **1.85 s** | −44 % | 93 → 100 | 743 → 320 KB |
+| `gastronomy-en.html` | 1.25 s | 1.96 s | +58 %* | 100 → 99 | 742 → 320 KB |
+
+\* `gastronomy-en.html` era la rama afortunada de una distribucion bimodal. Tomando
+las dos paginas de gastronomia juntas, las 6 corridas previas dan mediana 2.26 s y
+peor caso 3.33 s; las 6 posteriores dan mediana 1.94 s y peor caso 1.98 s. La
+bimodalidad desaparecio.
+
+`festivals.html` y `festivals-en.html` no tienen linea base de 3 corridas. La unica
+corrida previa disponible (fase 3) marcaba 0.9 s y 1.2 s con 554 KB; el estado final
+da 1.41 s y 1.82 s con 249 KB y FCP sin cambios. El elemento LCP es el mismo y no
+hay evidencia para atribuir la diferencia al cambio: se trata como varianza de
+simulacion (ver 7.5).
+
+`image-delivery-insight` paso de 567–573 KiB a 66–86 KiB por pagina, y
+`lcp-discovery-insight` quedo en 1 donde aplica.
+
+### 7.4 Verificacion de que no hay regresion visual
+
+- **Fidelidad de las variantes** contra la referencia LANCZOS: SSIM 0.9979–0.9992,
+  PSNR 28–37 dB. La densidad de bytes por pixel de cada variante es mayor que la
+  del original (1.4×–2.6×): no se comprimieron mas agresivamente que el asset de
+  origen.
+- **Render real del navegador** (misma caja CSS, variante contra original):
+  PSNR 28.0–33.5 dB y energia de gradiente 0.86×–1.14×, con 4 de 6 casos ≥ 1.0. Es
+  la diferencia esperable entre dos remuestreos distintos; no hay perdida
+  sistematica de detalle.
+- **Capturas antes/despues** (18: 390 claro, 1440 claro y 390 oscuro × 6 paginas):
+  PSNR 34.9–38.6 dB en pagina completa, 43.5 dB en el menu abierto y 99 dB en el
+  recorte de foco (identico). Las diferencias se concentran en las zonas de imagen;
+  la UI, el texto y el layout no cambian.
+- **Seleccion de variante verificada** con `currentSrc`: 412@1.75 → 640; 390@1 →
+  480; 390@2 → 800; 1280@1 → 640; 1280@2 → 1200; 768 tablet → 800 en tarjetas.
+
+### 7.5 Limitaciones de esta optimizacion
+
+1. **`festivals*` sin linea base comparable**: no se puede afirmar mejora ni
+   regresion de LCP. Sus 249 KB y su perf 100 se reportan como estado final.
+2. **`gastronomy-en.html`**: la comparacion contra una sola rama de la distribucion
+   bimodal exagera el delta. La comparacion agrupada es la valida (7.3).
+3. **Ahorro residual de 66–86 KiB**: Lighthouse lo atribuye a seguir comprimiendo
+   mas. No se hizo: `quality=82` es una decision de fidelidad, no un descuido, y se
+   documenta en lugar de aplicarse en silencio. Cerrarlo exigiria bajar calidad o
+   migrar a AVIF.
+4. **Peso del repositorio**: las 44 variantes suman 4.15 MB en disco. En tiempo de
+   ejecucion el navegador descarga una sola por imagen (la que elige `srcset`).
+5. **Valoracion estetica humana pendiente**: SSIM/PSNR no sustituyen la revision
+   visual. Este asistente no puede interpretar imagenes.
+6. **Capturas comprometidas**: las 10 de `docs/fase-3/capturas/` son previas a esta
+   optimizacion. Se conservaron como evidencia "antes" en lugar de sobrescribirlas;
+   la comparacion esta en 7.4.
+
+### 7.6 Como reproducirlo
+
+Generacion de variantes (desde la raiz del repositorio, con Pillow instalado):
+
+```python
+from PIL import Image
+
+names = [
+    "hero-cultura", "patrimonio-maiz", "plato-mole", "plato-tacos", "plato-bebidas",
+    "festival-origen", "festival-cempasuchil", "festival-guelaguetza",
+    "card-muertos", "card-mariachi", "card-gastronomia",
+]
+for name in names:
+    im = Image.open(f"images/{name}.webp").convert("RGB")
+    w0, h0 = im.size
+    for w in (480, 640, 800, 1200):
+        im.resize((w, round(w * h0 / w0)), Image.LANCZOS).save(
+            f"images/{name}-{w}.webp", "WEBP", quality=82, method=6
+        )
+```
+
+Y la medicion, con 3 corridas por pagina:
+
+```powershell
+$env:CHROME_PATH = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+foreach ($p in @('index','index-en','festivals','festivals-en','gastronomy','gastronomy-en')) {
+  foreach ($i in 1..3) {
+    npx lighthouse "http://127.0.0.1:8099/$p.html" `
+      --only-categories=performance,accessibility,best-practices,seo `
+      --output=json --output-path="lh-$p-$i.json" --quiet --chrome-flags="--headless=new"
+  }
+}
+```
+
+---
+
+## 8. Lo que no se cambio y por que
 
 - **Contenido y textos**: intactos. El sitio omite acentos deliberadamente; no se
   "corrigio" la ortografia para no alterar el trabajo entregado.
@@ -294,11 +453,16 @@ al archivo correcto en ambas direcciones.
   defecto tecnico, y no se invento contenido nuevo.
 - **CSS muerto** (`.image-placeholder`): se dejo como estaba para no mezclar limpieza
   con cambios funcionales.
-- **Imagenes**: no se regeneraron ni recomprimieron; eso explica el LCP preexistente.
+- **Imagenes originales**: los 12 archivos de `images/` no se modificaron ni se
+  recomprimieron. Las 44 variantes responsive son archivos nuevos derivados de ellos
+  (seccion 7); el original sigue siendo el `src` de respaldo.
+- **Calidad de compresion**: no se bajo `quality` de WebP aunque Lighthouse aun
+  estime 66-86 KiB de ahorro. Es una decision de fidelidad visual documentada, no un
+  pendiente olvidado (7.5).
 
 ---
 
-## 8. Pendientes y verificacion manual
+## 9. Pendientes y verificacion manual
 
 Estos puntos **no** se ejecutaron y no deben presentarse como resueltos:
 
@@ -309,13 +473,16 @@ Estos puntos **no** se ejecutaron y no deben presentarse como resueltos:
    ejecutado. axe no sustituye una prueba con lector de pantalla.
 3. **Dispositivos fisicos**: las pruebas usan emulacion de viewport, no hardware.
 4. **Zoom nativo del navegador al 200 %**: se uso el proxy de 320 px con densidad 2×.
-5. **LCP de 3.3–3.8 s** en `index.html`, `index-en.html` y `gastronomy.html`:
-   preexistente. Mejorarlo requiere imagenes responsive (`srcset`, AVIF/WebP de menor
-   resolucion) y queda fuera del alcance de la Fase 3.
-6. **`hreflang`**: se retiro porque las URL relativas son invalidas para Lighthouse y
+5. **Revision visual humana de las variantes de imagen.** SSIM/PSNR y la comparacion
+   de capturas indican que no hay perdida sistematica, pero la valoracion estetica
+   final de los 11 assets requiere ojo humano: este asistente no interpreta imagenes.
+6. **Ahorro residual de 66-86 KiB por pagina** (`image-delivery-insight`): exige
+   bajar la calidad de compresion o migrar a AVIF. No se aplico para no degradar
+   fidelidad sin aprobacion del autor.
+7. **`hreflang`**: se retiro porque las URL relativas son invalidas para Lighthouse y
    el sitio no tiene dominio publicado. Si se publica en un dominio fijo, conviene
    reponer `link rel="alternate" hreflang` con URL absolutas.
-7. **Contacto**: si la asignatura exige una seccion de contacto, hay que crearla; hoy
+8. **Contacto**: si la asignatura exige una seccion de contacto, hay que crearla; hoy
    el enlace lleva al footer.
 
 ### Verificacion manual sugerida (5 minutos)
@@ -329,9 +496,14 @@ Estos puntos **no** se ejecutaron y no deben presentarse como resueltos:
 
 ---
 
-## 9. Capturas para el informe academico
+## 10. Capturas para el informe academico
 
 Carpeta: `docs/fase-3/capturas/`
+
+Estas 10 capturas se tomaron **antes** de la optimizacion de imagenes de la seccion
+7. Se conservaron sin sobrescribir para que sirvan como evidencia "antes": mismas
+dimensiones y mismo layout que el estado final, con diferencias concentradas en las
+zonas de imagen (PSNR 34.85-38.57 dB; ver 7.4). La captura de foco es identica.
 
 | Archivo | Que demuestra |
 |---|---|
@@ -355,7 +527,7 @@ pantalla.
 
 ---
 
-## 10. Como ejecutar y verificar localmente
+## 11. Como ejecutar y verificar localmente
 
 ```powershell
 # 1. Servir el sitio (necesario para Lighthouse; abrir con file:// tambien funciona)
@@ -376,22 +548,32 @@ npx lighthouse http://127.0.0.1:8099/index.html --only-categories=accessibility,
 Para axe-core: extension "axe DevTools" en Chrome/Edge, o el paquete `axe-core`
 inyectado desde un script de Playwright/Puppeteer.
 
+Para regenerar las variantes responsive y repetir la medicion de LCP con 3 corridas:
+ver 7.6. Los comandos de esa seccion son los que produjeron las cifras de 7.3.
+
 ---
 
-## 11. Conclusion y limitaciones
+## 12. Conclusion y limitaciones
 
 El sitio pasa de 95 a 100 en accesibilidad medida por Lighthouse en las 6 paginas,
-sin perder rendimiento y sin cambiar su identidad visual ni su contenido. Los
-problemas corregidos eran reales y verificables: navegacion inexistente en movil,
-cuatro combinaciones de color bajo AA, nombres de enlace ambiguos y objetivos
-tactiles por debajo del minimo.
+sin cambiar su identidad visual ni su contenido. Los problemas corregidos eran
+reales y verificables: navegacion inexistente en movil, cuatro combinaciones de
+color bajo AA, nombres de enlace ambiguos y objetivos tactiles por debajo del
+minimo.
+
+En rendimiento, el LCP de las paginas con linea base comparable baja 41-44 %
+(`index*` 3.77 -> 2.19 s; `gastronomy` 3.27 -> 1.85 s), la mediana de performance
+queda en 99-100, el CLS se mantiene en 0 y el peso de pagina cae de 731-743 KB a
+313-320 KB. Eso se logro con variantes responsive, no bajando la calidad de
+compresion.
 
 Limitaciones que deben declararse en la entrega:
 
 - Las herramientas automatizadas detectan una parte de los problemas de accesibilidad;
   no certifican conformidad total con WCAG 2.2 AA.
 - No se ejecutaron pruebas con lectores de pantalla ni en dispositivos fisicos.
-- El rendimiento en las paginas con imagenes grandes sigue limitado por assets
-  preexistentes, fuera del alcance de esta fase.
+- `festivals*` no tiene linea base de 3 corridas, asi que su LCP final se reporta
+  como estado medido, no como mejora.
+- La valoracion estetica humana de las variantes de imagen sigue pendiente.
 
 Este informe documenta unicamente resultados observados en las ejecuciones descritas.
