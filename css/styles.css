@@ -8,7 +8,7 @@
   --secondary: #f7f7f7;
   --secondary-foreground: #252525;
   --muted: #f7f7f7;
-  --muted-foreground: #8e8e8e;
+  --muted-foreground: #6f6f6f;
   --accent: #f7f7f7;
   --accent-foreground: #252525;
   --border: #e8e8e8;
@@ -446,7 +446,7 @@ main {
 }
 
 .card:hover .card-link {
-  opacity: 0.6;
+  opacity: 0.75;
 }
 
 .page-header {
@@ -775,7 +775,7 @@ main {
 
 .ingredients-title {
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.016em;
   color: var(--muted-foreground);
@@ -835,17 +835,17 @@ main {
   font-size: 0.875rem;
   line-height: 1.5;
   color: var(--primary-foreground);
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .footer-nav-title {
   display: block;
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.02em;
   color: var(--primary-foreground);
-  opacity: 0.5;
+  opacity: 0.7;
   margin-bottom: 0.75rem;
 }
 
@@ -884,9 +884,9 @@ main {
   width: 2rem;
   height: 2rem;
   border: 1px solid var(--primary-foreground);
-  opacity: 0.5;
+  opacity: 0.7;
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   text-transform: uppercase;
   color: var(--primary-foreground);
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -898,19 +898,24 @@ main {
 }
 
 .footer-bottom {
-  border-top: 1px solid var(--primary-foreground);
-  opacity: 0.2;
+  border-top: 1px solid var(--border);
   padding: 1rem 0;
+}
+
+@supports (border-color: color-mix(in srgb, currentColor 20%, transparent)) {
+  .footer-bottom {
+    border-top-color: color-mix(in srgb, var(--primary-foreground) 20%, transparent);
+  }
 }
 
 .copyright {
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.015em;
   text-align: center;
   color: var(--primary-foreground);
-  opacity: 0.5;
+  opacity: 0.7;
 }
 /* ==================================================
    FASE 2 — Identidad mexicana + accesibilidad
@@ -919,6 +924,7 @@ main {
 :root {
   --cempasuchil: #E65100;
   --cempasuchil-dark: #B53E00;
+  --cempasuchil-darker: #9E3400;
   --obispo: #4A148C;
   --fiesta: #FDD835;
   --blanco: #FFFFFF;
@@ -928,7 +934,7 @@ main {
 @media (prefers-color-scheme: dark) {
   :root {
     --cempasuchil: #FF8A3D;
-    --cempasuchil-dark: #E65100;
+    --cempasuchil-dark: #B53E00;
     --obispo: #CE93D8;
     --fiesta: #FDD835;
   }
@@ -1003,18 +1009,33 @@ main {
   background-color: var(--cempasuchil-dark);
   color: var(--blanco);
 }
-.btn-primary:hover { background-color: var(--cempasuchil); border-color: var(--cempasuchil); transform: translateY(-0.125rem); }
+.btn-primary:hover {
+  background-color: var(--cempasuchil-darker);
+  border-color: var(--cempasuchil-darker);
+  transform: translateY(-0.125rem);
+}
 .btn-outline {
-  border-color: var(--blanco);
-  color: var(--blanco);
+  border-color: currentColor;
+  color: inherit;
   background: transparent;
 }
-.btn-outline:hover { background: var(--cempasuchil-dark); border-color: var(--cempasuchil-dark); color: var(--blanco); }
+.btn-outline:hover {
+  background: var(--cempasuchil-darker);
+  border-color: var(--cempasuchil-darker);
+  color: var(--blanco);
+}
 .card-link { border-bottom-color: var(--cempasuchil-dark); }
 .card:hover { border-color: var(--obispo); }
 .nav-link.active { text-decoration-color: var(--cempasuchil-dark); }
 .cta-card { border-color: var(--negro); }
 .cta-tag { color: var(--fiesta); opacity: 0.9; }
+
+@media (prefers-color-scheme: dark) {
+  .cta-tag {
+    color: var(--cempasuchil-dark);
+    opacity: 1;
+  }
+}
 
 /* Toggle idioma como enlaces reales */
 .lang-toggle { gap: 0.5rem; }
@@ -1027,7 +1048,7 @@ main {
   margin-top: 0.75rem;
   font-size: 0.75rem;
   line-height: 1.5;
-  opacity: 0.6;
+  opacity: 0.7;
   max-width: 20rem;
 }
 
