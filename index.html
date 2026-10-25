@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mexico: Colores, Ritmo y Tradicion</title>
   <meta name="description" content="Descubre la magia, los sonidos y los sabores de Mexico.">
+  <link rel="alternate" hreflang="es" href="index.html">
+  <link rel="alternate" hreflang="en" href="index-en.html">
+  <link rel="alternate" hreflang="x-default" href="index.html">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -12,21 +15,27 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo" aria-label="Mexico Cultural - Inicio">Mexico Cultural</a>
-      <nav class="nav" aria-label="Navegacion principal">
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="visually-hidden">Menu</span>
+      </button>
+      <nav id="primary-nav" class="nav" aria-label="Navegacion principal">
         <a href="index.html" class="nav-link active" aria-current="page">Inicio</a>
         <a href="festivals.html" class="nav-link">Festivales</a>
         <a href="gastronomy.html" class="nav-link">Gastronomia</a>
         <a href="#contacto" class="nav-link">Contacto</a>
       </nav>
-      <div class="lang-toggle" aria-label="Idioma">
-        <a href="index.html" aria-current="true" lang="es">ES</a>
+      <nav class="lang-toggle" aria-label="Idioma">
+        <a href="index.html" aria-current="page" lang="es" hreflang="es">ES</a>
         <span class="lang-separator" aria-hidden="true">|</span>
-        <a href="index-en.html" lang="en">EN</a>
-      </div>
+        <a href="index-en.html" lang="en" hreflang="en">EN</a>
+      </nav>
     </div>
   </header>
 
-  <main id="contenido">
+  <main id="contenido" tabindex="-1">
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
         <div class="hero-content">
@@ -56,7 +65,7 @@
               <p class="card-meta">01 / tradicion</p>
               <h3 class="card-title">Dia de Muertos</h3>
               <p class="card-description">Una celebracion llena de memoria, color y simbolos que honran a quienes ya no estan.</p>
-              <a href="festivals.html" class="card-link">Leer mas <span aria-hidden="true">↗</span></a>
+              <a href="festivals.html" class="card-link" aria-label="Leer mas: Dia de Muertos">Leer mas <span aria-hidden="true">↗</span></a>
             </div>
           </article>
 
@@ -68,7 +77,7 @@
               <p class="card-meta">02 / tradicion</p>
               <h3 class="card-title">Musica y Mariachi</h3>
               <p class="card-description">El sonido de Mexico: tradicion, emocion y encuentros que se cuentan cantando.</p>
-              <a href="festivals.html" class="card-link">Leer mas <span aria-hidden="true">↗</span></a>
+              <a href="festivals.html" class="card-link" aria-label="Leer mas: Musica y Mariachi">Leer mas <span aria-hidden="true">↗</span></a>
             </div>
           </article>
 
@@ -80,7 +89,7 @@
               <p class="card-meta">03 / tradicion</p>
               <h3 class="card-title">Gastronomia Tradicional</h3>
               <p class="card-description">Sabores regionales, recetas heredadas y una mesa que reune a toda la comunidad.</p>
-              <a href="gastronomy.html" class="card-link">Leer mas <span aria-hidden="true">↗</span></a>
+              <a href="gastronomy.html" class="card-link" aria-label="Leer mas: Gastronomia Tradicional">Leer mas <span aria-hidden="true">↗</span></a>
             </div>
           </article>
         </div>
@@ -93,7 +102,7 @@
       <div class="footer-brand">
         <p class="footer-logo">Mexico Cultural</p>
         <p class="footer-tagline">Una ventana a los colores, el ritmo y la tradicion.</p>
-        <p class="footer-credit">Proyecto academico UNAD — Programacion Web 213025, Fase 2. Contenido cultural con fines educativos.</p>
+        <p class="footer-credit">Proyecto academico UNAD — Programacion Web 213025, Fase 3. Contenido cultural con fines educativos.</p>
       </div>
       <nav class="footer-nav" aria-label="Mapa del sitio">
         <span class="footer-nav-title">Mapa del sitio</span>
@@ -101,13 +110,13 @@
         <a href="festivals.html" class="footer-link">Festivales</a>
         <a href="gastronomy.html" class="footer-link">Gastronomia</a>
       </nav>
-      <div class="footer-social">
+      <nav class="footer-social" aria-label="Cambiar idioma">
         <span class="footer-nav-title">Idioma</span>
         <div class="social-links">
-          <a href="index.html" class="social-link" lang="es" aria-current="true">ES</a>
-          <a href="index-en.html" class="social-link" lang="en">EN</a>
+          <a href="index.html" class="social-link" lang="es" hreflang="es" aria-current="page">ES</a>
+          <a href="index-en.html" class="social-link" lang="en" hreflang="en">EN</a>
         </div>
-      </div>
+      </nav>
     </div>
     <div class="footer-bottom">
       <p class="copyright">© 2024 Mexico Cultural — Todos los derechos reservados</p>
