@@ -1,6 +1,4 @@
-﻿document.documentElement.classList.add('js');
-
-document.addEventListener('DOMContentLoaded', function() {
+﻿document.addEventListener('DOMContentLoaded', function() {
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.getElementById('primary-nav');
 
