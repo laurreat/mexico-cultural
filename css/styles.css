@@ -1042,6 +1042,8 @@ main {
 .lang-toggle a {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
   min-height: 1.5rem;
   padding: 0 0.25rem;
   color: inherit;
