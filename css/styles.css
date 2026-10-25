@@ -111,14 +111,15 @@ ul {
 }
 
 .nav {
-  display: none;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem 1.5rem;
 }
 
 @media (min-width: 768px) {
   .nav {
-    display: flex;
+    gap: 2rem;
   }
 }
 
@@ -145,7 +146,7 @@ ul {
   align-items: center;
   gap: 0.25rem;
   border: 1px solid var(--foreground);
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem 0.75rem;
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
   font-size: 0.6875rem;
   font-weight: 700;
@@ -251,7 +252,6 @@ main {
   padding: 0.875rem 1.25rem;
   border: 1px solid transparent;
   transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-  white-space: nowrap;
 }
 
 .btn-primary {
@@ -375,9 +375,9 @@ main {
   gap: 1.25rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .cards-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   }
 }
 
@@ -1039,9 +1039,107 @@ main {
 
 /* Toggle idioma como enlaces reales */
 .lang-toggle { gap: 0.5rem; }
-.lang-toggle a { color: inherit; text-decoration: none; padding: 0 0.15rem; }
-.lang-toggle a[aria-current="true"] { text-decoration: underline; text-underline-offset: 3px; }
+.lang-toggle a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.5rem;
+  padding: 0 0.25rem;
+  color: inherit;
+  text-decoration: none;
+}
+.lang-toggle a[aria-current="page"] { text-decoration: underline; text-underline-offset: 3px; }
 .lang-toggle a:hover { text-decoration: underline; }
+
+/* Utilidad para texto solo para lectores de pantalla */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Boton de navegacion movil (solo con JS) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--foreground);
+  color: var(--foreground);
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 1.25rem;
+  height: 2px;
+  background-color: currentColor;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(0.4rem) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-0.4rem) rotate(-45deg);
+}
+
+/* Objetivos de scroll no quedan tapados por el header sticky */
+main,
+[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+@media (max-width: 767px) {
+  .header-inner {
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    padding: 1rem 0;
+  }
+
+  .logo {
+    margin-right: auto;
+  }
+
+  .nav {
+    order: 3;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav-link {
+    padding: 0.6rem 0.25rem;
+  }
+
+  .js .nav-toggle {
+    display: inline-flex;
+  }
+
+  .js .nav {
+    display: none;
+    border-top: 1px solid var(--border);
+    margin-top: 0.75rem;
+  }
+
+  .js .nav.is-open {
+    display: flex;
+  }
+}
 
 /* Footer academico */
 .footer-credit {
@@ -1053,5 +1151,14 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .btn-primary:hover {
+    transform: none !important;
+  }
 }
